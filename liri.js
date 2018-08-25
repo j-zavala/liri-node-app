@@ -10,6 +10,37 @@ let fs = require('fs');
 let spotify = new Spotify(keys.spotify);
 let client = new Twitter(keys.twitter);
 let command = process.argv[2];
+let nodeArgv = process.argv;
+
+//switch case
+switch(command) {
+    case "my-tweets":
+        getTweets();
+    break;
+
+    case "spotify-this-song":
+        if(x) {
+            getSong(x);
+        } else {
+            getSong("All the Small Things");
+        }
+    break;
+
+    case "movie-this":
+        if(x) {
+            omdbData(x);
+        } else {
+            omdbData("Transformers")
+        }
+    break;
+
+    case "do-what-it-says":
+        doThing();
+    break;
+
+    default: 
+        console.log("Please enter one of the following commands: my-tweets, spotify-this-song, movie-this, do-what-it-says")
+}
 
 
 
@@ -47,7 +78,7 @@ let getTweets = function(username) {
     });
 };
 
-function spotifySong(song) {
+function getSong(song) {
 
     spotify.search({ type: 'track', query: song }, function(err, data) {
         if (err) {
@@ -193,8 +224,16 @@ function omdbData(movie){
   
   }
 
+  function doThing () {
+      fs.readFile('random.txt', "utf8", function(error, data) {
+          let txt = data.split(',')
+
+          getSong(txt[1]);
+      });
+  }
+
 
 
 // getTweets("JohnSte78206501");
-// spotifySong('All the Small Things');
-omdbData("transformers");
+// getSong('All the Small Things');
+// omdbData("transformers");
