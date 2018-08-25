@@ -11,6 +11,9 @@ let spotify = new Spotify(keys.spotify);
 let client = new Twitter(keys.twitter);
 let command = process.argv[2];
 
+
+
+
 let getTweets = function(username) {
     // Display last 20 tweets;
     let screenName = {screen_name: username};
@@ -99,14 +102,99 @@ function spotifySong(song) {
       });
 }
 
+function omdbData(movie){
+    let apikey = "88f0fe15";
+    let omdbURL = "http://www.omdbapi.com/?i=tt3896198&apikey=" + apikey +  "&t=" + movie + '&plot=short&tomatoes=true';
+  
+    request(omdbURL, function (error, response, body1){
+      if(!error && response.statusCode == 200){
+        let body = JSON.parse(body1);
+        let title = "Title: " + body.Title;
+        let year = "Release Year: " + body.Year;
+        let rating = "IMdB Rating: " + body.imdbRating;
+        let country = "Country: " + body.Country;
+        let language = "Language: " + body.Language;
+        let plot = "Plot: " + body.Plot;
+        let actors = "Actors: " + body.Actors;
+        let rtRating = "Rotten Tomatoes Rating: " + body.tomatoRating;
+        let rtURL = "Rotten Tomatoes URL: " + body.tomatoURL;
 
+        console.log(title);
+        console.log(year);
+        console.log(rating);
+        console.log(country);
+        console.log(language);
+        console.log(plot);
+        console.log(actors);
+        console.log(rtRating);
+        console.log(rtURL);
+  
+        // adds text to log.txt
+        fs.appendFile('log.txt', "\n" +title + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', year + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', rating + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', country + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', language + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', plot + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', actors + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', rtRating + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+        fs.appendFile('log.txt', rtURL + "\n", 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+  
+      } else {
+        console.log('Error occurred.')
+      }
+      if(movie === "Mr. Nobody") {
+        console.log("-----------------------");
+        console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+        console.log("It's on Netflix!");
+  
+        //adds text to log.txt
+        fs.appendFile('log.txt', "-----------------------");
+        fs.appendFile('log.txt', "If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+        fs.appendFile('log.txt', "It's on Netflix!");
+      }
+    });
+  
+  }
 
-// function spotifySong(song) {
-//     spotify.search({type: 'track', query: 'song'}, function(error, data) {
-//         console.log(JSON.parse(data));
-//     })
-// }
 
 
 // getTweets("JohnSte78206501");
-spotifySong('All the Small Things');
+// spotifySong('All the Small Things');
+omdbData("transformers");
