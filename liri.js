@@ -10,7 +10,6 @@ let fs = require('fs');
 let spotify = new Spotify(keys.spotify);
 let client = new Twitter(keys.twitter);
 let command = process.argv[2];
-let nodeArgv = process.argv;
 
 //switch case
 switch(command) {
