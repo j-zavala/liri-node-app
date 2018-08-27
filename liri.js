@@ -10,11 +10,17 @@ let fs = require('fs');
 let spotify = new Spotify(keys.spotify);
 let client = new Twitter(keys.twitter);
 let command = process.argv[2];
+let x = "";
 
 //switch case
 switch(command) {
     case "my-tweets":
-        getTweets();
+        if(x) {
+            getTweets(x);
+        }
+        else {
+            getTweets("JohnSte78206501");
+        }
     break;
 
     case "spotify-this-song":
@@ -29,7 +35,7 @@ switch(command) {
         if(x) {
             omdbData(x);
         } else {
-            omdbData("Transformers")
+            omdbData("Transformers");
         }
     break;
 
